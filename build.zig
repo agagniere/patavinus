@@ -5,6 +5,7 @@ pub fn build(b: *std.Build) void {
     const optimize = b.standardOptimizeOption(.{ .preferred_optimize_mode = .ReleaseFast });
 
     const zap = b.dependency("zap", .{ .target = target, .optimize = optimize }).module("zap");
+    const libpq = b.dependency("libpq", .{ .target = target, .optimize = optimize }).artifact("pq");
 
     const exe = b.addExecutable(.{
         .name = "inventaire",
@@ -14,6 +15,7 @@ pub fn build(b: *std.Build) void {
     });
 
     exe.root_module.addImport("zap", zap);
+    exe.linkLibrary(libpq);
     b.installArtifact(exe);
 
     { // Run

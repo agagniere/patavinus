@@ -1,5 +1,6 @@
 const std = @import("std");
 const zap = @import("zap");
+const database = @import("database.zig");
 
 fn on_request_verbose(r: zap.Request) void {
     if (r.path) |the_path| {
@@ -17,6 +18,13 @@ fn on_request_minimal(r: zap.Request) void {
 }
 
 pub fn main() !void {
+    var gpa: std.heap.GeneralPurposeAllocator(.{}) = .{};
+    defer _ = gpa.deinit();
+    const allocator = gpa.allocator();
+
+    var dbconn = database.Connection.init(allocator);
+    try dbconn.connect();
+
     var listener = zap.HttpListener.init(.{
         .port = 3000,
         .on_request = on_request_verbose,

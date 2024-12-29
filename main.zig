@@ -23,6 +23,7 @@ pub fn main() !void {
     const allocator = gpa.allocator();
 
     var dbconn = database.Connection.init(allocator);
+    defer dbconn.deinit();
     try dbconn.connect();
 
     var listener = zap.HttpListener.init(.{

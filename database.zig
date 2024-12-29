@@ -83,7 +83,11 @@ pub const Connection = struct {
             var infos: [*]const libpq.PQconninfoOption = libpq.PQconninfo(self.pq);
 
             while (infos[0].keyword != null) {
-                log.debug("{s}: {s}", .{ infos[0].keyword, infos[0].val });
+                const keyword: [*:0]const u8 = infos[0].keyword;
+                const value_opt: ?[*:0]const u8 = infos[0].val;
+                if (value_opt) |value| {
+                    log.debug("{s}: {s}", .{ keyword, value });
+                }
                 infos += 1;
             }
         }
@@ -156,7 +160,7 @@ pub const Connection = struct {
     //     return null;
     // }
 
-    // pub fn serverVersion(self: *@This()) i32 {
-    //     return libpq.PQserverVersion(self.pq);
-    // }
+    pub fn serverVersion(self: *Connection) i32 {
+        return libpq.PQserverVersion(self.pq);
+    }
 };

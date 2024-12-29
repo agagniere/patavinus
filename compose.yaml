@@ -1,0 +1,36 @@
+services:
+  app:
+    build:
+      context: zig-out/bin
+      dockerfile: ../../Containerfile
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      PGHOST: "postgres://database:5432"
+      PGUSER: inventory
+      PGPASSWORD: Yrotnevni
+
+  database:
+    image: "postgres:16-alpine"
+    shm_size: 128mb
+    volumes:
+      - storage:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: inventory
+      POSTGRES_USER: inventory
+      POSTGRES_PASSWORD: Yrotnevni
+      PGDATA: /var/lib/postgresql/data
+      PGHOST: localhost
+      PGUSER: inventory
+      PGPASSWORD: Yrotnevni
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  storage: {}

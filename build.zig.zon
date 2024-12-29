@@ -7,8 +7,8 @@
             .hash = "12200223d76ab6cd32f75bc2e31463b0b429bb5b2b6fa4ce8f68dea494ca1ec3398b",
         },
         .libpq = .{
-            .url = "git+https://github.com/allyourcodebase/libpq?ref=5.16.4+1#c28c947e25f20b1009e193449021717d9a02d6ee",
-            .hash = "1220fe5b76fe7d4e0e2c98fea0fc7711dbc2bc6e2a3e33e626d63a4240fdaa382940",
+            .url = "git+https://github.com/allyourcodebase/libpq?ref=strerror_r#b0491bd93a23a2f8eda520b423d968944b3ff466",
+            .hash = "12208825791c3abbef945f471ea3b247880d62c117c44ead7e9feacee3c459f6bff8",
         },
     },
     .paths = .{ "build.zig", "build.zig.zon" },

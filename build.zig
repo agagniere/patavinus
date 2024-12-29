@@ -2,7 +2,7 @@ const std = @import("std");
 
 pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
-    const optimize = b.standardOptimizeOption(.{ .preferred_optimize_mode = .ReleaseFast });
+    const optimize = b.standardOptimizeOption(.{ .preferred_optimize_mode = .ReleaseSafe });
 
     const zap = b.dependency("zap", .{ .target = target, .optimize = optimize }).module("zap");
     const libpq = b.dependency("libpq", .{ .target = target, .optimize = optimize }).artifact("pq");

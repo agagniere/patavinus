@@ -7,9 +7,11 @@ pub fn build(b: *std.Build) void {
     const zap = b.dependency("zap", .{ .target = target, .optimize = optimize }).module("zap");
     const libpq = b.dependency("libpq", .{ .target = target, .optimize = optimize }).artifact("pq");
 
+    const rootsourcefile = b.path("src/main.zig");
+
     const exe = b.addExecutable(.{
-        .name = "inventaire",
-        .root_source_file = b.path("main.zig"),
+        .name = "patavinus",
+        .root_source_file = rootsourcefile,
         .target = target,
         .optimize = optimize,
     });
@@ -31,7 +33,7 @@ pub fn build(b: *std.Build) void {
     { // Test
         const test_step = b.step("test", "Run unit tests");
         const unit_tests = b.addTest(.{
-            .root_source_file = b.path("main.zig"),
+            .root_source_file = rootsourcefile,
             .target = target,
             .optimize = optimize,
         });

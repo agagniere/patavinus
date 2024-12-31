@@ -1,14 +1,15 @@
 .{
-    .name = "inventaire",
+    .name = "patavinus",
     .version = "0.0.1",
+    .minimum_zig_version = "0.13.0",
     .dependencies = .{
         .zap = .{
             .url = "git+https://github.com/zigzap/zap?ref=v0.9.1#ae5c9278335d8e1133cd6d22707323dda712e120",
             .hash = "12200223d76ab6cd32f75bc2e31463b0b429bb5b2b6fa4ce8f68dea494ca1ec3398b",
         },
         .libpq = .{
-            .url = "git+https://github.com/allyourcodebase/libpq?ref=strerror_r#b0491bd93a23a2f8eda520b423d968944b3ff466",
-            .hash = "12208825791c3abbef945f471ea3b247880d62c117c44ead7e9feacee3c459f6bff8",
+            .url = "git+https://github.com/allyourcodebase/libpq?ref=5.16.4+2#9e62495b580f01f7ca49b565e432a95d6aef18b0",
+            .hash = "12204c61e935952079924989300e8a1aaeafe2884ee89a313bde1ccfdd8d203e4e06",
         },
     },
     .paths = .{ "build.zig", "build.zig.zon" },

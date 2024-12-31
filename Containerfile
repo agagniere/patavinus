@@ -1,5 +1,5 @@
 FROM alpine
 WORKDIR /execute
 ENV PATH="/execute"
-COPY inventaire .
-ENTRYPOINT ["inventaire"]
+COPY patavinus .
+ENTRYPOINT ["patavinus"]

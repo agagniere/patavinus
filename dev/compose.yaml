@@ -1,14 +1,14 @@
 services:
   app:
     build:
-      context: zig-out/bin
+      context: ../zig-out/bin
       dockerfile: ../../Containerfile
     depends_on:
       database:
         condition: service_healthy
     environment:
       PGHOST: "postgres://database:5432"
-      PGUSER: inventory
+      PGUSER: antonius
       PGPASSWORD: Yrotnevni
 
   database:
@@ -19,12 +19,12 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: inventory
-      POSTGRES_USER: inventory
+      POSTGRES_DB: patavinus
+      POSTGRES_USER: antonius
       POSTGRES_PASSWORD: Yrotnevni
       PGDATA: /var/lib/postgresql/data
       PGHOST: localhost
-      PGUSER: inventory
+      PGUSER: antonius
       PGPASSWORD: Yrotnevni
     healthcheck:
       test: ["CMD-SHELL", "pg_isready"]

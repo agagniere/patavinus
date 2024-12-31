@@ -10,7 +10,7 @@ zig build
 
 ```shell
 zig build -Dtarget=aarch64-linux-musl
-podman compose build
+podman compose -f dev/compose.yaml build
 podman compose up
 ```
 

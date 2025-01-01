@@ -1,0 +1,20 @@
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: padua # Cluster name
+#image: docker.io/rancher/k3s:v1.31.4-k3s1
+servers: 1    # Either 1 or more than 3
+agents: 0     # Can be any number
+kubeAPI:
+  host: patavin.us
+  hostIP: 127.0.0.1
+  hostPort: "6445"
+options:
+  k3s:
+    extraArgs:
+      - arg: --disable=traefik
+        nodeFilters:
+          - server:*
+      - arg: --kubelet-arg=feature-gates=KubeletInUserNamespace=true
+        nodeFilters:
+          - server:*

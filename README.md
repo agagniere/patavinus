@@ -6,13 +6,9 @@
 zig build
 ```
 
-## Failed attempt to use compose on Apple sillicon macOS
+## Run locally
 
-```shell
-zig build -Dtarget=aarch64-linux-musl
-podman compose -f dev/compose.yaml build
-podman compose up
-```
+See [dev](dev/README.md)
 
 ## About the name
 

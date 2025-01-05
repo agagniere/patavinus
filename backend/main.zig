@@ -29,8 +29,9 @@ pub fn main() !void {
     var listener = zap.HttpListener.init(.{
         .port = 3000,
         .on_request = on_request_verbose,
+        .public_folder = "assets",
         .log = true,
-        .max_clients = 100000,
+        .max_clients = 100,
     });
     try listener.listen();
 

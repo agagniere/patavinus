@@ -18,6 +18,10 @@
             .hash = "12203d1a64e4118636aa27d85c80e43659078fcc6fece9867813757d34aff83c226e",
             //.lazy = true,
         },
+        .args = .{
+            .url = "git+https://github.com/ikskuh/zig-args?ref=zig-0.13.x#1df15086e5d1b245acedadbec03440bb37871e5e",
+            .hash = "1220904d2fdcd970dd0d216211d092eb3ef6da01117163cc9393ab845a1d66c029d9",
+        },
     },
     .paths = .{ "build.zig", "build.zig.zon", "frontend", "backend" },
 }

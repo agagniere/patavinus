@@ -40,6 +40,7 @@ pub fn build(b: *std.Build) void {
 
         const zap = b.dependency("zap", .{ .target = target, .optimize = optimize }).module("zap");
         const libpq = b.dependency("libpq", .{ .target = target, .optimize = optimize }).artifact("pq");
+        const argsParser = b.dependency("args", .{ .target = target, .optimize = optimize }).module("args");
 
         const rootsourcefile = b.path("backend/main.zig");
         const exe = b.addExecutable(.{
@@ -50,6 +51,7 @@ pub fn build(b: *std.Build) void {
         });
 
         exe.root_module.addImport("zap", zap);
+        exe.root_module.addImport("args", argsParser);
         exe.linkLibrary(libpq);
         backend.dependOn(&b.addInstallArtifact(exe, .{}).step);
         b.getInstallStep().dependOn(backend);

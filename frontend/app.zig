@@ -66,8 +66,24 @@ fn update() !i32 {
     return @intCast(@divTrunc(wait_event_micros, 1000));
 }
 
+var theme_dark: bool = true;
+
 fn dvui_frame() !void {
-    if (try dvui.button(@src(), "Hello !!!", .{}, .{})) {
-        std.log.info("Hello", .{});
+    if (theme_dark) {
+        win.theme = win.themes.get("Adwaita Dark").?;
+        if (try dvui.button(@src(), "Switch to light mode", .{}, .{})) {
+            theme_dark = false;
+        }
+    } else {
+        win.theme = win.themes.get("Adwaita Light").?;
+        if (try dvui.button(@src(), "Switch to dark mode", .{}, .{})) {
+            theme_dark = true;
+        }
+    }
+    if (try dvui.expander(@src(), "Create a new item", .{}, .{ .expand = .horizontal })) {
+        var name = try dvui.textEntry(@src(), .{}, .{});
+        name.deinit();
+        var description = try dvui.textEntry(@src(), .{ .multiline = true }, .{ .min_size_content = .{ .w = 500, .h = 50 } });
+        description.deinit();
     }
 }

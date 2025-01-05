@@ -1,6 +1,12 @@
 const std = @import("std");
 const dvui = @import("dvui");
 const web = @import("dvuiWebBackend");
+const logFn = @import("log.zig").logFn;
+
+pub const std_options: std.Options = .{
+    // Overwrite default log handler
+    .logFn = logFn,
+};
 
 var gpa_instance = std.heap.GeneralPurposeAllocator(.{}){};
 const gpa = gpa_instance.allocator();

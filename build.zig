@@ -24,7 +24,8 @@ pub fn build(b: *std.Build) void {
         b.installArtifact(exe);
     }
     { // frontend
-        //const step = b.step("frontend", "Build the frontend");
+        const frontend = b.step("frontend", "Build the frontend");
+        const web: std.Build.InstallDir = .{ .custom = "web" };
         const query = std.Target.Query{
             .cpu_arch = .wasm32,
             .os_tag = .freestanding,
@@ -44,9 +45,12 @@ pub fn build(b: *std.Build) void {
             .optimize = optimize,
             .link_libc = true,
         });
+        exe.entry = .disabled;
         exe.root_module.addImport("dvui", dvui.module("dvui_web"));
         exe.root_module.addImport("dvuiWebBackend", dvui.module("WebBackend"));
-        b.installArtifact(exe);
+        frontend.dependOn(&b.addInstallArtifact(exe, .{ .dest_dir = .{ .override = web } }).step);
+        frontend.dependOn(&b.addInstallFileWithDir(dvui.path("src/backends/WebBackend.js"), web, "WebBackend.js").step);
+        b.getInstallStep().dependOn(frontend);
     }
 
     // { // Run

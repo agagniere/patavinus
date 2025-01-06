@@ -17,6 +17,7 @@ pub fn build(b: *std.Build) void {
             .optimize = optimize,
             .link_backend = false,
         });
+        const percent_encoding = b.dependency("percent_encoding", .{ .target = target, .optimize = optimize });
         const rootsourcefile = b.path("frontend/app.zig");
         const exe = b.addExecutable(.{
             .name = "antonius",
@@ -27,6 +28,7 @@ pub fn build(b: *std.Build) void {
         });
         exe.entry = .disabled;
         exe.root_module.addImport("dvui", dvui.module("dvui_web"));
+        exe.root_module.addImport("percent_encoding", percent_encoding.module("percent_encoding"));
         exe.root_module.addImport("dvuiWebBackend", dvui.module("WebBackend"));
         frontend.dependOn(&b.addInstallArtifact(exe, .{ .dest_dir = .{ .override = web_dir } }).step);
         frontend.dependOn(&b.addInstallFileWithDir(dvui.path("src/backends/WebBackend.js"), web_dir, "WebBackend.js").step);

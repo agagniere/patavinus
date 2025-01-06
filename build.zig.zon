@@ -3,24 +3,28 @@
     .version = "0.0.1",
     .minimum_zig_version = "0.13.0",
     .dependencies = .{
+        // frontend
+        .dvui = .{
+            .url = "git+https://github.com/david-vanderson/dvui.git#ef5c92ffd9e49394324b6d8aeb7a81951d9f693d",
+            .hash = "12203d1a64e4118636aa27d85c80e43659078fcc6fece9867813757d34aff83c226e",
+        },
+        // backend
         .zap = .{
             .url = "git+https://github.com/zigzap/zap?ref=v0.9.1#ae5c9278335d8e1133cd6d22707323dda712e120",
             .hash = "12200223d76ab6cd32f75bc2e31463b0b429bb5b2b6fa4ce8f68dea494ca1ec3398b",
-            //.lazy = true,
         },
         .libpq = .{
             .url = "git+https://github.com/allyourcodebase/libpq?ref=5.16.4+2#9e62495b580f01f7ca49b565e432a95d6aef18b0",
             .hash = "12204c61e935952079924989300e8a1aaeafe2884ee89a313bde1ccfdd8d203e4e06",
-            //.lazy = true,
-        },
-        .dvui = .{
-            .url = "git+https://github.com/david-vanderson/dvui.git#ef5c92ffd9e49394324b6d8aeb7a81951d9f693d",
-            .hash = "12203d1a64e4118636aa27d85c80e43659078fcc6fece9867813757d34aff83c226e",
-            //.lazy = true,
         },
         .args = .{
             .url = "git+https://github.com/ikskuh/zig-args?ref=zig-0.13.x#1df15086e5d1b245acedadbec03440bb37871e5e",
             .hash = "1220904d2fdcd970dd0d216211d092eb3ef6da01117163cc9393ab845a1d66c029d9",
+        },
+        // both
+        .percent_encoding = .{
+            .url = "git+https://github.com/bcrist/zig-percent-encoding#5bb61c66cabf8cd7724f1539ad5c4c421ebd2c4c",
+            .hash = "12208ce96000d7263c362543c19236d68cbf1f05c69c7305ed4915db82970719c61d",
         },
     },
     .paths = .{ "build.zig", "build.zig.zon", "frontend", "backend" },

@@ -78,20 +78,23 @@ fn update() !i32 {
 var theme_dark: bool = true;
 
 fn dvui_frame() !void {
+    if (theme_dark) {
+        win.theme = win.themes.get("Adwaita Dark").?;
+    } else {
+        win.theme = win.themes.get("Adwaita Light").?;
+    }
+    var scroll = try dvui.scrollArea(@src(), .{}, .{ .expand = .both, .color_fill = .{ .name = .fill_window } });
+    defer scroll.deinit();
     {
         var box = try dvui.box(@src(), .horizontal, .{});
         defer box.deinit();
 
         if (theme_dark) {
-            if (try dvui.button(@src(), "Switch to light mode", .{}, .{})) {
+            if (try dvui.button(@src(), "Switch to light mode", .{}, .{}))
                 theme_dark = false;
-                win.theme = win.themes.get("Adwaita Light").?;
-            }
         } else {
-            if (try dvui.button(@src(), "Switch to dark mode", .{}, .{})) {
+            if (try dvui.button(@src(), "Switch to dark mode", .{}, .{}))
                 theme_dark = true;
-                win.theme = win.themes.get("Adwaita Dark").?;
-            }
         }
         if (try dvui.button(@src(), "Source", .{}, .{})) {
             try dvui.openURL("https://github.com/agagniere/patavinus");
@@ -102,7 +105,7 @@ fn dvui_frame() !void {
             var box = try dvui.box(@src(), .horizontal, .{});
             defer box.deinit();
 
-            try dvui.label(@src(), "Name", .{}, .{});
+            try dvui.label(@src(), "Name", .{}, .{ .gravity_y = 0.5 });
             var name = try dvui.textEntry(@src(), .{}, .{});
             defer name.deinit();
         }
@@ -116,7 +119,7 @@ fn dvui_frame() !void {
         var box = try dvui.box(@src(), .horizontal, .{});
         defer box.deinit();
 
-        try dvui.label(@src(), "Query", .{}, .{});
+        try dvui.label(@src(), "Query", .{}, .{ .gravity_y = 0.5 });
         {
             var name = try dvui.textEntry(@src(), .{}, .{});
             name.deinit();

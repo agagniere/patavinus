@@ -28,6 +28,13 @@ fn search(r: zap.Request) void {
     r.sendBody("<html><body>Searching</body></html>") catch return;
 }
 
+fn display(r: zap.Request) void {
+    if (r.query) |q| {
+        std.log.debug("query: {s}", .{q});
+    }
+    r.sendBody("<html><body>Item</body></html>") catch return;
+}
+
 pub fn main() !void {
     var gpa: std.heap.GeneralPurposeAllocator(.{ .thread_safe = true }) = .{};
     defer _ = gpa.deinit();
@@ -50,6 +57,7 @@ pub fn main() !void {
         .not_found = not_found,
     });
     defer router.deinit();
+    try router.handle_func_unbound("/i", display);
     try router.handle_func_unbound("/search", search);
 
     var listener = zap.HttpListener.init(.{

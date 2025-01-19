@@ -51,7 +51,13 @@ pub fn build(b: *std.Build) void {
             .target = target,
             .optimize = optimize,
         });
+        const html = b.addModule("html", .{
+            .root_source_file = b.path("backend/html.zig"),
+            .target = target,
+            .optimize = optimize,
+        });
 
+        exe.root_module.addImport("html", html);
         exe.root_module.addImport("zap", zap);
         exe.root_module.addImport("args", argsParser);
         exe.linkLibrary(libpq);
